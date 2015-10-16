@@ -38,6 +38,7 @@ var fs = require('fs-extra');
 var moment = require('moment');
 var uuid = require('uuid');
 var path = require('path');
+var util = require('util');
 
 // Handlebars
 var handlebars = require('handlebars');
@@ -110,6 +111,7 @@ function getChangedIssues(dateMax, dateMin) {
 			maxResults: 200,
 			expand: ['changelog']
 		}, function (err, issues) {
+			console.log("getChangedIssues: err = " + err + "; issues = " + util.inspect(issues));
 			if (err) {
 				return reject(err);
 			}
@@ -358,9 +360,11 @@ function doLookup(robot, res, dateMax, dateMin) {
 	//	return issues;
 	//})
 	.then(function (issues) {
+		console.log("*** issues passed to renderTemplate = " + util.inspect(issues));
 		return renderTemplate(issues, 'changedIssues');
 	}).then(function (issues) {
 		if (issues.length) {
+			console.log("*** issues passed to sendMessages = " + util.inspect(issues));
 			_utils2['default'].sendMessages(robot, res, issues);
 		} else {
 			res.send('Nope, nothing found for those dates.');
