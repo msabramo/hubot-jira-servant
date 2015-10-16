@@ -38,8 +38,7 @@ let Swag = require('swag');
 Swag.registerHelpers(handlebars);
 
 handlebars.registerHelper('cleanString', function(text) {
-  text = handlebars.escapeExpression(text);
-  return new handlebars.SafeString(text);
+  return new handlebars.SafeString(text.replace(/"/g, '\\"'));
 });
 
 // HTML Decode
