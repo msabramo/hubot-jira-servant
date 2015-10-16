@@ -23,7 +23,7 @@ var utils = {
 	},
 
 	removeControlCharacters: function removeControlCharacters(str) {
-		return str.replace(/[\x00-\x1F\x7F-\x9F]/g, "");
+		return str.replace(/[^\w\s\(\)\[\]\{\}\":,;\.\-/\\]/g, "");
 	},
 
 	printErrToClient: function printErrToClient(err, robot, res) {
