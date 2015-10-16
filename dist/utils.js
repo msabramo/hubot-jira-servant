@@ -6,6 +6,7 @@ Object.defineProperty(exports, '__esModule', {
 var SLACK_MAX_MESSAGE_SIZE = 4000;
 
 var moment = require('moment');
+var util = require('util');
 
 var utils = {
 
@@ -194,6 +195,9 @@ var utils = {
 			return message !== false;
 		});
 
+		console.log("messagesAttachments = " + util.inspect(messagesAttachments));
+		console.log("isJson = " + isJson);
+
 		if (isJson) {
 			utils._sendAttachmentMessages(robot, res, messagesAttachments);
 		} else {
@@ -207,7 +211,9 @@ var utils = {
 			if (o && typeof o === "object" && o !== null) {
 				return o;
 			}
-		} catch (e) {}
+		} catch (e) {
+			console.log("Got exception " + e + " while trying to parse " + jsonString);
+		}
 
 		return false;
 	}

@@ -3,6 +3,7 @@
 const SLACK_MAX_MESSAGE_SIZE = 4000;
 
 let moment = require('moment');
+let util = require('util');
 
 const utils = {
 
@@ -195,6 +196,9 @@ const utils = {
 		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.removeLineBreaks(message).replace(/\t/g, '    ')))
 		let isJson = messagesAttachments.every(message => message !== false);
 
+    console.log("messagesAttachments = " + util.inspect(messagesAttachments));
+    console.log("isJson = " + isJson)
+
 		if(isJson) {
 			utils._sendAttachmentMessages(robot, res, messagesAttachments);
 		} else {
@@ -209,7 +213,9 @@ const utils = {
 			if (o && typeof o === "object" && o !== null) {
 				return o;
 			}
-		} catch (e) {}
+		} catch (e) {
+      console.log("Got exception " + e + " while trying to parse " + jsonString);
+    }
 
 		return false;
 	}
