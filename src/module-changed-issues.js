@@ -37,6 +37,11 @@ let handlebars = require('handlebars');
 let Swag = require('swag');
 Swag.registerHelpers(handlebars);
 
+handlebars.registerHelper('cleanString', function(text) {
+  text = handlebars.escapeExpression(text);
+  return new handlebars.SafeString(text);
+});
+
 // HTML Decode
 let Entities = require('html-entities').AllHtmlEntities;
 let entities = new Entities();

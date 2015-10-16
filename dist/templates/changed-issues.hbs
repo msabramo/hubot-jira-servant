@@ -5,7 +5,7 @@
     "title_link": "{{_custom.urlToIssue}}",
     "fields": [
         {
-            "value": "{{#each _custom.history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{#if toString}}`{{{truncate toString 70 "..."}}}`{{else}}_null_{{/if}}{{/is}}\n{{/each}}{{/each}}",
+            "value": "{{#each _custom.history}}{{actor}}\n{{#each entries}}   {{#is action 'created'}}created the issue{{else}}{{field}} → {{#if toString}}`{{{cleanString (truncate toString 70 "...")}}}`{{else}}_null_{{/if}}{{/is}}\n{{/each}}{{/each}}",
             "short": true
         },
         {
