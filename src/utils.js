@@ -16,6 +16,14 @@ const utils = {
 		return str.replace(/(\r\n|\n|\r)/gm, ' ');
 	},
 
+	removeTabs(str) {
+		return str.replace(/\t/g, '    ')
+	},
+
+	removeControlCharacters(str) {
+		return str.replace(/[\x00-\x1F\x7F-\x9F]/g, "")
+	},
+
 	printErrToClient(err, robot, res) {
 		if (typeof err === 'object') {
 			if (err.errorMessages) {
@@ -193,7 +201,11 @@ const utils = {
 			messages = [messages];
 		}
 
-		let messagesAttachments = messages.map(message => utils.tryParseJSON(utils.removeLineBreaks(message).replace(/\t/g, '    ')))
+		let messagesAttachments = messages.map(
+      message => utils.tryParseJSON(
+        utils.removeControlCharacters(message)
+      )
+    )
 		let isJson = messagesAttachments.every(message => message !== false);
 
     console.log("messagesAttachments = " + util.inspect(messagesAttachments));
